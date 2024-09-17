@@ -1,0 +1,16 @@
+---
+title: "data_import"
+output: github_document
+date: "2024-09-17"
+author: "Ravi Brenner"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+import tidyverse
+```{r}
+library(tidyverse)
+```
+
