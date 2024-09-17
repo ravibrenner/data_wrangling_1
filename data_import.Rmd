@@ -16,7 +16,7 @@ library(haven)
 This document will show how to import data into R
 following along with in class work
 
-## import FAS litters CSV
+## Import FAS litters CSV
 
 ```{r}
 litters_df <- read_csv("./data/FAS_litters.csv") 
@@ -34,7 +34,7 @@ tail(litters_df)
 view(litters_df)
 ```
 
-## import FAS pups dataset
+## Import FAS pups dataset
 
 ```{r, message=FALSE}
 pups_df <- read_csv("./data/FAS_pups.csv")
@@ -100,14 +100,34 @@ litters_df <-
 litters_df <- clean_names(litters_df)
 ```
 
-## importing from excel
+## Importing from excel
 ```{r}
 mlb_df <- read_excel("data/mlb11.xlsx",
                      sheet = "mlb11")
 ```
 
-## importing from SAS
+## Importing from SAS
 ```{r}
 pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
 ```
 
+## Never use read.csv()
+```{r}
+litters_df <- read.csv("data/FAS_litters.csv")
+
+litters_df$L
+```
+This prints too much, and allows you to use partial column names
+
+read_csv doesn't have these issues (and tibbles are more memory efficient)
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv")
+
+litters_df$L
+```
+
+Never do this:
+```{r}
+litters_df$`Litter Number`
+```
+Because we really don't need to/shouldn't be pulling columns out of our dataframe

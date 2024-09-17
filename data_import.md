@@ -6,7 +6,7 @@ Ravi Brenner
 This document will show how to import data into R following along with
 in class work
 
-## import FAS litters CSV
+## Import FAS litters CSV
 
 ``` r
 litters_df <- read_csv("./data/FAS_litters.csv") 
@@ -61,7 +61,7 @@ tail(litters_df)
 view(litters_df)
 ```
 
-## import FAS pups dataset
+## Import FAS pups dataset
 
 ``` r
 pups_df <- read_csv("./data/FAS_pups.csv")
@@ -215,15 +215,86 @@ litters_df <-
 litters_df <- clean_names(litters_df)
 ```
 
-## importing from excel
+## Importing from excel
 
 ``` r
 mlb_df <- read_excel("data/mlb11.xlsx",
                      sheet = "mlb11")
 ```
 
-## importing from SAS
+## Importing from SAS
 
 ``` r
 pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
 ```
+
+## Never use read.csv()
+
+``` r
+litters_df <- read.csv("data/FAS_litters.csv")
+
+litters_df$L
+```
+
+    ##  [1] "#85"             "#1/2/95/2"       "#5/5/3/83/3-3"   "#5/4/2/95/2"    
+    ##  [5] "#4/2/95/3-3"     "#2/2/95/3-2"     "#1/5/3/83/3-3/2" "#3/83/3-3"      
+    ##  [9] "#2/95/3"         "#3/5/2/2/95"     "#5/4/3/83/3"     "#1/6/2/2/95-2"  
+    ## [13] "#3/5/3/83/3-3-2" "#2/2/95/2"       "#3/6/2/2/95-3"   "#59"            
+    ## [17] "#103"            "#1/82/3-2"       "#3/83/3-2"       "#2/95/2-2"      
+    ## [21] "#3/82/3-2"       "#4/2/95/2"       "#5/3/83/5-2"     "#8/110/3-2"     
+    ## [25] "#106"            "#94/2"           "#62"             "#84/2"          
+    ## [29] "#107"            "#85/2"           "#98"             "#102"           
+    ## [33] "#101"            "#111"            "#112"            "#97"            
+    ## [37] "#5/93"           "#5/93/2"         "#7/82-3-2"       "#7/110/3-2"     
+    ## [41] "#2/95/2"         "#82/4"           "#53"             "#79"            
+    ## [45] "#100"            "#4/84"           "#108"            "#99"            
+    ## [49] "#110"
+
+This prints too much, and allows you to use partial column names
+
+read_csv doesn’t have these issues (and tibbles are more memory
+efficient)
+
+``` r
+litters_df <- read_csv("data/FAS_litters.csv")
+```
+
+    ## Rows: 49 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (4): Group, Litter Number, GD0 weight, GD18 weight
+    ## dbl (4): GD of Birth, Pups born alive, Pups dead @ birth, Pups survive
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+litters_df$L
+```
+
+    ## Warning: Unknown or uninitialised column: `L`.
+
+    ## NULL
+
+Never do this:
+
+``` r
+litters_df$`Litter Number`
+```
+
+    ##  [1] "#85"             "#1/2/95/2"       "#5/5/3/83/3-3"   "#5/4/2/95/2"    
+    ##  [5] "#4/2/95/3-3"     "#2/2/95/3-2"     "#1/5/3/83/3-3/2" "#3/83/3-3"      
+    ##  [9] "#2/95/3"         "#3/5/2/2/95"     "#5/4/3/83/3"     "#1/6/2/2/95-2"  
+    ## [13] "#3/5/3/83/3-3-2" "#2/2/95/2"       "#3/6/2/2/95-3"   "#59"            
+    ## [17] "#103"            "#1/82/3-2"       "#3/83/3-2"       "#2/95/2-2"      
+    ## [21] "#3/82/3-2"       "#4/2/95/2"       "#5/3/83/5-2"     "#8/110/3-2"     
+    ## [25] "#106"            "#94/2"           "#62"             "#84/2"          
+    ## [29] "#107"            "#85/2"           "#98"             "#102"           
+    ## [33] "#101"            "#111"            "#112"            "#97"            
+    ## [37] "#5/93"           "#5/93/2"         "#7/82-3-2"       "#7/110/3-2"     
+    ## [41] "#2/95/2"         "#82/4"           "#53"             "#79"            
+    ## [45] "#100"            "#4/84"           "#108"            "#99"            
+    ## [49] "#110"
+
+Because we really don’t need to/shouldn’t be pulling columns out of our
+dataframe
