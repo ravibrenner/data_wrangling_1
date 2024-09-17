@@ -16,7 +16,9 @@ This document will show how to import data into R
 ## import FAS litters CSV
 
 ```{r}
-litters_df <- read.csv("./data/FAS_litters.csv") 
+litters_df <- read_csv("./data/FAS_litters.csv") 
+
+litters_df <- clean_names(litters_df) #from janitor package
 ```
 
 Look at the dataset briefly
