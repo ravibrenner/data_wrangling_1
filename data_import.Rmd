@@ -77,7 +77,23 @@ litters_df <-
     na = c("","NA",".")
   )
 
-litters_df
+litters_df <- clean_names(litters_df)
 ```
 
+A nice function to maybe add to my cleaning workflow
+```{r}
+skimr::skim(litters_df)
+```
+
+what if we code `group` as a factor variable?
+```{r}
+litters_df <- 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("","NA","."),
+    col_types = cols(Group = col_factor())
+  )
+
+litters_df <- clean_names(litters_df)
+```
 
