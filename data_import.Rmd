@@ -56,4 +56,28 @@ litters_df <-
   )
 ```
 
+missing data
+```{r}
+litters_df <- 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    skip = 0
+  )
+
+litters_df
+```
+can see gd0_weight and gd18_weight is character which isn't what we want
+inspecting the data, we see a mix of blanks, NAs, and . to indicate missing values
+
+can fix this in read_csv
+```{r}
+litters_df <- 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("","NA",".")
+  )
+
+litters_df
+```
+
 
