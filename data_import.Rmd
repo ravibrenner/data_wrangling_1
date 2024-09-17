@@ -5,8 +5,27 @@ date: "2024-09-17"
 author: "Ravi Brenner"
 ---
 
-```{r setup, echo=FALSE,message=FALSE}
+```{r setup, echo=FALSE, message = FALSE}
 library(tidyverse)
+library(janitor)
 ```
 
+
 This document will show how to import data into R
+
+## import FAS litters CSV
+
+```{r}
+litters_df <- read.csv("./data/FAS_litters.csv") 
+```
+
+Look at the dataset briefly
+```{r}
+head(litters_df)
+tail(litters_df)
+```
+
+```{r, eval=FALSE}
+view(litters_df)
+```
+
