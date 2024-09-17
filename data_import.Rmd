@@ -31,3 +31,17 @@ tail(litters_df)
 view(litters_df)
 ```
 
+## import FAS pups dataset
+
+```{r}
+pups_df <- read_csv("./data/FAS_pups.csv")
+
+pups_df <- clean_names(pups_df)
+```
+
+look at the data
+```{r}
+head(pups_df)
+```
+
+
