@@ -3,7 +3,8 @@ data_import
 Ravi Brenner
 2024-09-17
 
-This document will show how to import data into R
+This document will show how to import data into R following along with
+in class work
 
 ## import FAS litters CSV
 
@@ -160,22 +161,69 @@ litters_df <-
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ``` r
-litters_df
+litters_df <- clean_names(litters_df)
 ```
 
-    ## # A tibble: 49 × 8
-    ##    Group `Litter Number` `GD0 weight` `GD18 weight` `GD of Birth`
-    ##    <chr> <chr>                  <dbl>         <dbl>         <dbl>
-    ##  1 Con7  #85                     19.7          34.7            20
-    ##  2 Con7  #1/2/95/2               27            42              19
-    ##  3 Con7  #5/5/3/83/3-3           26            41.4            19
-    ##  4 Con7  #5/4/2/95/2             28.5          44.1            19
-    ##  5 Con7  #4/2/95/3-3             NA            NA              20
-    ##  6 Con7  #2/2/95/3-2             NA            NA              20
-    ##  7 Con7  #1/5/3/83/3-3/2         NA            NA              20
-    ##  8 Con8  #3/83/3-3               NA            NA              20
-    ##  9 Con8  #2/95/3                 NA            NA              20
-    ## 10 Con8  #3/5/2/2/95             28.5          NA              20
-    ## # ℹ 39 more rows
-    ## # ℹ 3 more variables: `Pups born alive` <dbl>, `Pups dead @ birth` <dbl>,
-    ## #   `Pups survive` <dbl>
+A nice function to maybe add to my cleaning workflow
+
+``` r
+skimr::skim(litters_df)
+```
+
+|                                                  |            |
+|:-------------------------------------------------|:-----------|
+| Name                                             | litters_df |
+| Number of rows                                   | 49         |
+| Number of columns                                | 8          |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   |            |
+| Column type frequency:                           |            |
+| character                                        | 2          |
+| numeric                                          | 6          |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |            |
+| Group variables                                  | None       |
+
+Data summary
+
+**Variable type: character**
+
+| skim_variable | n_missing | complete_rate | min | max | empty | n_unique | whitespace |
+|:--------------|----------:|--------------:|----:|----:|------:|---------:|-----------:|
+| group         |         0 |             1 |   4 |   4 |     0 |        6 |          0 |
+| litter_number |         0 |             1 |   3 |  15 |     0 |       49 |          0 |
+
+**Variable type: numeric**
+
+| skim_variable   | n_missing | complete_rate |  mean |   sd |   p0 |   p25 |   p50 |   p75 | p100 | hist  |
+|:----------------|----------:|--------------:|------:|-----:|-----:|------:|------:|------:|-----:|:------|
+| gd0_weight      |        15 |          0.69 | 24.38 | 3.28 | 17.0 | 22.30 | 24.10 | 26.67 | 33.4 | ▃▇▇▆▁ |
+| gd18_weight     |        17 |          0.65 | 41.52 | 4.05 | 33.4 | 38.88 | 42.25 | 43.80 | 52.7 | ▃▃▇▂▁ |
+| gd_of_birth     |         0 |          1.00 | 19.65 | 0.48 | 19.0 | 19.00 | 20.00 | 20.00 | 20.0 | ▅▁▁▁▇ |
+| pups_born_alive |         0 |          1.00 |  7.35 | 1.76 |  3.0 |  6.00 |  8.00 |  8.00 | 11.0 | ▁▃▂▇▁ |
+| pups_dead_birth |         0 |          1.00 |  0.33 | 0.75 |  0.0 |  0.00 |  0.00 |  0.00 |  4.0 | ▇▂▁▁▁ |
+| pups_survive    |         0 |          1.00 |  6.41 | 2.05 |  1.0 |  5.00 |  7.00 |  8.00 |  9.0 | ▁▃▂▇▇ |
+
+what if we code `group` as a factor variable?
+
+``` r
+litters_df <- 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    na = c("","NA","."),
+    col_types = cols(Group = col_factor())
+  )
+
+litters_df <- clean_names(litters_df)
+```
+
+## importing from excel
+
+``` r
+mlb_df <- read_excel("data/mlb11.xlsx",
+                     sheet = "mlb11")
+```
+
+## importing from SAS
+
+``` r
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
+```

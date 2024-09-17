@@ -9,10 +9,12 @@ author: "Ravi Brenner"
 library(tidyverse)
 library(janitor)
 library(readxl)
+library(haven)
 ```
 
 
 This document will show how to import data into R
+following along with in class work
 
 ## import FAS litters CSV
 
@@ -104,5 +106,8 @@ mlb_df <- read_excel("data/mlb11.xlsx",
                      sheet = "mlb11")
 ```
 
-
 ## importing from SAS
+```{r}
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
+```
+
