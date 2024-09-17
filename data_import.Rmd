@@ -33,7 +33,7 @@ view(litters_df)
 
 ## import FAS pups dataset
 
-```{r}
+```{r, message=FALSE}
 pups_df <- read_csv("./data/FAS_pups.csv")
 
 pups_df <- clean_names(pups_df)
@@ -42,6 +42,18 @@ pups_df <- clean_names(pups_df)
 look at the data
 ```{r}
 head(pups_df)
+```
+
+## look at read_csv options
+
+col_names and skipping rows
+
+```{r, message=FALSE}
+litters_df <- 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    skip = 2
+  )
 ```
 
 

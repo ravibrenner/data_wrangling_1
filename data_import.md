@@ -64,18 +64,7 @@ view(litters_df)
 
 ``` r
 pups_df <- read_csv("./data/FAS_pups.csv")
-```
 
-    ## Rows: 313 Columns: 6
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: ","
-    ## chr (2): Litter Number, PD ears
-    ## dbl (4): Sex, PD eyes, PD pivot, PD walk
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-``` r
 pups_df <- clean_names(pups_df)
 ```
 
@@ -94,3 +83,15 @@ head(pups_df)
     ## 4 #1/2/95/2         1 5            13        8      10
     ## 5 #5/5/3/83/3-3     1 5            13        8      10
     ## 6 #5/5/3/83/3-3     1 5            14        6       9
+
+## look at read_csv options
+
+col_names and skipping rows
+
+``` r
+litters_df <- 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    skip = 2
+  )
+```
