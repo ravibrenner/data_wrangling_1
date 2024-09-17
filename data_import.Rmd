@@ -5,12 +5,8 @@ date: "2024-09-17"
 author: "Ravi Brenner"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-import tidyverse
-```{r}
+```{r setup, echo=FALSE,message=FALSE}
 library(tidyverse)
 ```
 
+This document will show how to import data into R
