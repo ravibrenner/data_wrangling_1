@@ -153,3 +153,25 @@ litters_df <- read_csv("data/FAS_litters.csv",
   mutate(wt_gain = gd18_weight - gd0_weight)
 ```
 
+piping when a tibble is not the first argument
+```{r}
+read_csv("data/FAS_litters.csv",
+         na = c("NA","",".")) |>
+  janitor::clean_names() |>
+  mutate(wt_gain = gd18_weight - gd0_weight) |>
+  lm(wt_gain ~ pups_born_alive, data = _)
+```
+
+data export
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv",
+                       na = c("NA","","."),
+                       show_col_types = F) |>
+  janitor::clean_names() |>
+  select(-pups_born_alive) |>
+  filter(group == "Con7") |>
+  mutate(wt_gain = gd18_weight - gd0_weight) 
+
+write_csv(litters_df, "data/clean_far_litters.csv")
+```
+
