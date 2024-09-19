@@ -674,3 +674,16 @@ arrange(litters_df, pups_born_alive,gd0_weight)
     ## 10 Low7  #112                23.9        40.5          19               6
     ## # ℹ 39 more rows
     ## # ℹ 2 more variables: pups_dead_birth <dbl>, pups_survive <dbl>
+
+## PIPING!
+
+The best thing to happen to R since sliced bread
+
+``` r
+litters_df <- read_csv("data/FAS_litters.csv",
+                       na = c("NA","","."),
+                       show_col_types = F) |>
+  janitor::clean_names() |>
+  select(-pups_born_alive) |>
+  filter(group == "Con7")
+```
