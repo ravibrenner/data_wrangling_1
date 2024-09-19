@@ -25,3 +25,51 @@ pups_df <- read_csv("data/FAS_pups.csv",
 pups_df<- janitor::clean_names(pups_df)
 ```
 
+
+## `select`
+
+Use `select` to select variables
+```{r}
+select(litters_df, group, litter_number, gd0_weight)
+```
+Select from columns A to B with :
+```{r}
+select(litters_df, group:gd18_weight)
+```
+
+drop a column using -
+```{r}
+select(litters_df, -pups_survive)
+```
+
+combine multiple operations
+```{r}
+select(litters_df, -(group:gd18_weight))
+```
+
+manipulate in more detail
+```{r}
+select(litters_df, starts_with("gd"))
+
+select(litters_df, contains("pups"))
+```
+
+can rename within select, or use `rename`
+```{r}
+select(litters_df, GROUP = group)
+
+rename(litters_df, GROUP = group)
+
+# change order of columns using select or relocate
+select(litters_df, litter_number, gd0_weight, everything())
+
+relocate(litters_df, litter_number, gd0_weight)
+```
+
+
+
+## `filter`
+
+##  `mutate`
+
+## `arrange`
