@@ -8,4 +8,20 @@ date: "2024-09-19"
 library(tidyverse)
 ```
 
-This document will show how to manipulate data
+This document will show how to *manipulate* data
+
+Import the two datasets that we need
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv",
+                       na = c("NA", "", "."),
+                       show_col_types = F) 
+
+litters_df <- janitor::clean_names(litters_df)
+
+pups_df <- read_csv("data/FAS_pups.csv",
+                    na = c("NA","","."),
+                    show_col_types = F)
+
+pups_df<- janitor::clean_names(pups_df)
+```
+
