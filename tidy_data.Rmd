@@ -14,14 +14,7 @@ This document will show how to tidy data.
 ```{r}
 pulse_df <- 
   read_sas("data/public_pulse_data.sas7bdat") |>
-  janitor::clean_names()
-```
-
-This needs to go from wide to long format
-
-```{r}
-pulse_tidy_df <-
-  pulse_df |>
+  janitor::clean_names() |>
   pivot_longer(
     cols = bdi_score_bl:bdi_score_12m,
     names_to = "visit",
@@ -31,4 +24,6 @@ pulse_tidy_df <-
   mutate(visit = replace(visit, visit == "bl","00m")) |>
   relocate(id, visit)
 ```
+
+
 
