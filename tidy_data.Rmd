@@ -25,7 +25,10 @@ pulse_tidy_df <-
   pivot_longer(
     cols = bdi_score_bl:bdi_score_12m,
     names_to = "visit",
-    values_to = "bdi_score"
-  )
+    values_to = "bdi_score",
+    names_prefix = "bdi_score_"
+  ) |>
+  mutate(visit = replace(visit, visit == "bl","00m")) |>
+  relocate(id, visit)
 ```
 
