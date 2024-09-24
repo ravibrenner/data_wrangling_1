@@ -12,7 +12,7 @@ library(haven)
 This document will show how to tidy data.
 
 ```{r}
-pulse_df <- 
+pulse_df <-
   read_sas("data/public_pulse_data.sas7bdat") |>
   janitor::clean_names() |>
   pivot_longer(
@@ -21,9 +21,22 @@ pulse_df <-
     values_to = "bdi_score",
     names_prefix = "bdi_score_"
   ) |>
-  mutate(visit = replace(visit, visit == "bl","00m")) |>
+  mutate(visit = replace(visit, visit == "bl", "00m")) |>
   relocate(id, visit)
 ```
 
+One more example
+
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv",
+                       na = c("NA","","."),
+                       show_col_types = FALSE) |>
+  janitor::clean_names() |>
+  pivot_longer(cols = gd0_weight:gd18_weight,
+               names_to = "gd_time",
+               values_to = "weight",
+               names_prefix = "gd") |>
+  mutate(gd_time = str_remove(gd_time,"_weight"))
+```
 
 
